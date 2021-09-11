@@ -9,4 +9,6 @@ import java.security.NoSuchAlgorithmException;
 public interface UserService {
   void register(String username,String password) throws NoSuchAlgorithmException;
   User login(String username,String password);
+  void updateimformation(User user);
+  boolean CheckAdminRole(User user);
 }

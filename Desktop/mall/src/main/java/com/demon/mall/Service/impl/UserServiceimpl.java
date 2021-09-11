@@ -50,4 +50,19 @@ public class UserServiceimpl implements UserService {
         return user;
 
     }
+
+    @Override
+    public void updateimformation(User user) {
+        //更新签名,根据主键
+        int i = userMapper.updateByPrimaryKeySelective(user);
+        if (i==0){
+            throw  new mallException(mallExceptionEunm.UPDATE_FAIL);
+        }
+
+    }
+
+    @Override
+    public boolean CheckAdminRole(User user) {
+        return  user.getRole().equals(2);
+    }
 }
