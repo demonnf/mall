@@ -13,6 +13,9 @@ public enum mallExceptionEunm {
     UPDATE_FAIL(10007, "更新错误请重新再试"),
     NEED_LOGIN(10008, "需要登陆"),
     NEED_ADMIN(10009,"需要管理员权限"),
+    CATAGORY_ISHAVE(10010,"Category已经存在"),
+    INSERTCATE_FAIL(10011,"插入Category失败"),
+    PARA_NULL(10012,"参数为空"),
     INSERT_FAIL(10003, "插入用户失败，请重新再试");
     Integer code;
     String msg;
