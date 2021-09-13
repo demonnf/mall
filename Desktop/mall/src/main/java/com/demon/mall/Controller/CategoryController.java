@@ -8,6 +8,7 @@ import com.demon.mall.Resdto.UpdateCategory;
 import com.demon.mall.Service.CategoryService;
 import com.demon.mall.Service.UserService;
 import com.demon.mall.model.pojo.User;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,13 +34,15 @@ public class CategoryController {
         categoryService.AddCategory(addCategory);
         return ApiResponse.success();
     }
+
     @ApiOperation("后台商品更新目录")
     @ResponseBody
     @PostMapping("admin/category/update")
-    public ApiResponse AddCategory( @Valid @RequestBody UpdateCategory updateCategory) {
+    public ApiResponse AddCategory(@Valid @RequestBody UpdateCategory updateCategory) {
         categoryService.UpdateCategory(updateCategory);
         return ApiResponse.success();
     }
+
     @ApiOperation("后台商品删除目录")
     @ResponseBody
     @PostMapping("admin/category/delete")
@@ -48,4 +51,11 @@ public class CategoryController {
         return ApiResponse.success();
     }
 
+    @ApiOperation("后台商品列表目录")
+    @ResponseBody
+    @PostMapping("admin/category/list")
+    public ApiResponse ListCategory(@RequestParam("pagenum") Integer pagenum, @RequestParam("pagesize") Integer pagesize) {
+        PageInfo pageInfo = categoryService.ListCategory(pagenum, pagesize);
+        return ApiResponse.success(pageInfo);
+    }
 }

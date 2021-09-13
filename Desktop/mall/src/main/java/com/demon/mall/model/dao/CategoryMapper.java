@@ -1,20 +1,25 @@
 package com.demon.mall.model.dao;
 
+import com.demon.mall.model.Vo.CategoryVO;
 import com.demon.mall.model.pojo.Category;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface CategoryMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Category record);
+    int insert(CategoryVO record);
 
-    int insertSelective(Category record);
+    int insertSelective(CategoryVO record);
 
-    Category selectByPrimaryKey(Integer id);
+    CategoryVO selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Category record);
+    int updateByPrimaryKeySelective(CategoryVO record);
 
-    int updateByPrimaryKey(Category record);
-    Category SelectByname(String name);
+    int updateByPrimaryKey(CategoryVO record);
+    CategoryVO SelectByname(String name);
+
+    List<Category> selectCategoryList();
 }

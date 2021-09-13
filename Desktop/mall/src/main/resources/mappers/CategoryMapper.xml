@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.demon.mall.model.dao.CategoryMapper">
-  <resultMap id="BaseResultMap" type="com.demon.mall.model.pojo.Category">
+  <resultMap id="BaseResultMap" type="com.demon.mall.model.Vo.CategoryVO">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type" jdbcType="INTEGER" property="type" />
@@ -19,6 +19,11 @@
     from imooc_mall_category
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectCategoryList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from imooc_mall_category
+  </select>
   <select id="SelectByname" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
@@ -29,7 +34,7 @@
     delete from imooc_mall_category
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.demon.mall.model.pojo.Category">
+  <insert id="insert" parameterType="com.demon.mall.model.Vo.CategoryVO">
     insert into imooc_mall_category (id, `name`, `type`, 
       parent_id, order_num, create_time, 
       update_time)
@@ -37,7 +42,7 @@
       #{parentId,jdbcType=INTEGER}, #{orderNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.demon.mall.model.pojo.Category">
+  <insert id="insertSelective" parameterType="com.demon.mall.model.Vo.CategoryVO">
     insert into imooc_mall_category
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -86,7 +91,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.demon.mall.model.pojo.Category">
+  <update id="updateByPrimaryKeySelective" parameterType="com.demon.mall.model.Vo.CategoryVO">
     update imooc_mall_category
     <set>
       <if test="name != null">
@@ -110,7 +115,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.demon.mall.model.pojo.Category">
+  <update id="updateByPrimaryKey" parameterType="com.demon.mall.model.Vo.CategoryVO">
     update imooc_mall_category
     set `name` = #{name,jdbcType=VARCHAR},
       `type` = #{type,jdbcType=INTEGER},

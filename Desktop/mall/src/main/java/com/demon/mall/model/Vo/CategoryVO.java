@@ -1,10 +1,10 @@
-package com.demon.mall.model.pojo;
+package com.demon.mall.model.Vo;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Category {
+public class CategoryVO {
     private Integer id;
 
     private String name;
@@ -18,6 +18,16 @@ public class Category {
     private Date createTime;
 
     private Date updateTime;
+
+    private  List<CategoryVO> childCategoryList=new ArrayList<CategoryVO>();
+
+    public List<CategoryVO> getChildCategoryList() {
+        return childCategoryList;
+    }
+
+    public void setChildCategoryList(List<CategoryVO> childCategoryList) {
+        this.childCategoryList = childCategoryList;
+    }
 
     public Integer getId() {
         return id;
