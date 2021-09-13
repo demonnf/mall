@@ -1,23 +1,30 @@
 package com.demon.mall.Resdto;
 
-
-
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
-public class AddCategory {
+public class UpdateCategory {
+    @NotNull(message = "id不能为空")
+    Integer id;
     @Size(min = 2,max = 5)
-    @NotNull(message = "name不为空")
+
     private String name;
     @Max(3)
-    @NotNull(message = "type不为空")
+
     private Integer type;
-    @NotNull(message = "parentId不为空")
+
     private Integer parentId;
-    @NotNull(message = "orderNum不为空")
+
     private Integer orderNum;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
