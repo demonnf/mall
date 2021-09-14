@@ -10,16 +10,18 @@ import java.util.List;
 public interface CategoryMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(CategoryVO record);
+    int insert(Category record);
 
-    int insertSelective(CategoryVO record);
+    int insertSelective(Category record);
 
-    CategoryVO selectByPrimaryKey(Integer id);
+    Category selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(CategoryVO record);
+    int updateByPrimaryKeySelective(Category record);
 
-    int updateByPrimaryKey(CategoryVO record);
-    CategoryVO SelectByname(String name);
+    int updateByPrimaryKey(Category record);
+    Category SelectByname(String name);
 
     List<Category> selectCategoryList();
+
+    List<Category>SelectByParentId(Integer parentId);
 }

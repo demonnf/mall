@@ -7,6 +7,7 @@ import com.demon.mall.Resdto.AddCategory;
 import com.demon.mall.Resdto.UpdateCategory;
 import com.demon.mall.Service.CategoryService;
 import com.demon.mall.Service.UserService;
+import com.demon.mall.model.Vo.CategoryVO;
 import com.demon.mall.model.pojo.User;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class CategoryController {
@@ -57,5 +59,12 @@ public class CategoryController {
     public ApiResponse ListCategory(@RequestParam("pagenum") Integer pagenum, @RequestParam("pagesize") Integer pagesize) {
         PageInfo pageInfo = categoryService.ListCategory(pagenum, pagesize);
         return ApiResponse.success(pageInfo);
+    }
+    @ApiOperation("前台商品列表目录")
+    @ResponseBody
+    @PostMapping("category/list")
+    public ApiResponse FrontListCategory() {
+        List<CategoryVO> categoryVOList = categoryService.listCategoryForCustomer();
+        return ApiResponse.success(categoryVOList);
     }
 }

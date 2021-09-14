@@ -8,13 +8,14 @@ import com.demon.mall.Service.CategoryService;
 import com.demon.mall.model.dao.CategoryMapper;
 import com.demon.mall.model.Vo.CategoryVO;
 import com.demon.mall.model.pojo.Category;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,9 +25,9 @@ public class CatagoryServiceimpl implements CategoryService {
 
     @Override
     public void AddCategory(AddCategory addCategory) {
-        CategoryVO category = new CategoryVO();
+        Category category = new Category();
         BeanUtils.copyProperties(addCategory, category);
-        CategoryVO category1 = categoryMapper.SelectByname(addCategory.getName());
+        Category category1 = categoryMapper.SelectByname(addCategory.getName());
         if (category1 != null) {
             throw new mallException(mallExceptionEunm.CATAGORY_ISHAVE);
         }
@@ -40,10 +41,10 @@ public class CatagoryServiceimpl implements CategoryService {
 
     @Override
     public void UpdateCategory(UpdateCategory updateCategory) throws mallException {
-        CategoryVO category = new CategoryVO();
+        Category category = new Category();
         BeanUtils.copyProperties(updateCategory, category);
         if (category.getName() != null) {
-            CategoryVO category1 = categoryMapper.SelectByname(category.getName());
+            Category category1 = categoryMapper.SelectByname(category.getName());
             if (category1 != null && !category1.getId().equals(updateCategory.getId())) {
                 throw new mallException(mallExceptionEunm.CATEGORY_ISNOTFOUND);
             }
@@ -57,7 +58,7 @@ public class CatagoryServiceimpl implements CategoryService {
 
     @Override
     public void DeleteCategory(Integer id) {
-        CategoryVO category = categoryMapper.selectByPrimaryKey(id);
+        Category category = categoryMapper.selectByPrimaryKey(id);
         if (category == null) {
             throw new mallException(mallExceptionEunm.ID_ISNULL);
         }
@@ -69,11 +70,31 @@ public class CatagoryServiceimpl implements CategoryService {
 
     @Override
     public PageInfo ListCategory(Integer pagenum, Integer pagesize) {
-       PageHelper.startPage(pagenum,pagesize,"type ,order_num");
-       List<Category> list=categoryMapper.selectCategoryList();
-        PageInfo pageInfo=new PageInfo<>(list);
+        PageHelper.startPage(pagenum, pagesize, "type ,order_num");
+        List<Category> list = categoryMapper.selectCategoryList();
+        PageInfo pageInfo = new PageInfo<>(list);
         return pageInfo;
 
 
+    }
+
+    @Override
+    public List<CategoryVO> listCategoryForCustomer(){
+        ArrayList<CategoryVO> categoryVOList = new ArrayList<>();
+        recursivelyFindCategories(categoryVOList,0);
+        return categoryVOList;
+    }
+    private void recursivelyFindCategories(List<CategoryVO> categoryVOList,Integer parentId){
+        //递归获取所有子类别，并组合成为一个目录树
+        List<Category> categoryList = categoryMapper.SelectByParentId(parentId);
+        if (!CollectionUtils.isEmpty(categoryList)) {
+            for (int i = 0; i < categoryList.size(); i++) {
+                Category category = categoryList.get(i);
+                CategoryVO categoryVO = new CategoryVO();
+                BeanUtils.copyProperties(category,categoryVO);
+                categoryVOList.add(categoryVO);
+                recursivelyFindCategories(categoryVO.getChildCategoryList(),categoryVO.getId());
+            }
+        }
     }
 }

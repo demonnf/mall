@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.demon.mall.model.dao.CategoryMapper">
-  <resultMap id="BaseResultMap" type="com.demon.mall.model.Vo.CategoryVO">
+  <resultMap id="BaseResultMap" type="com.demon.mall.model.pojo.Category">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type" jdbcType="INTEGER" property="type" />
@@ -29,6 +29,12 @@
     <include refid="Base_Column_List"/>
     from imooc_mall_category
     where name=#{name,jdbcType=VARCHAR}
+  </select>
+  <select id="SelectByParentId" parameterType="int" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from imooc_mall_category
+    where parent_id=#{parentId}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from imooc_mall_category

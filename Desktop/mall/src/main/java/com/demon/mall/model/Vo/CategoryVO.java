@@ -1,9 +1,10 @@
 package com.demon.mall.model.Vo;
 
+
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 public class CategoryVO {
     private Integer id;
 
@@ -19,7 +20,7 @@ public class CategoryVO {
 
     private Date updateTime;
 
-    private  List<CategoryVO> childCategoryList=new ArrayList<CategoryVO>();
+    private  List<CategoryVO> childCategoryList=new ArrayList<>();
 
     public List<CategoryVO> getChildCategoryList() {
         return childCategoryList;
