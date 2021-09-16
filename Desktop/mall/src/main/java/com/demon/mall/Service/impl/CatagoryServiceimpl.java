@@ -12,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -77,7 +78,7 @@ public class CatagoryServiceimpl implements CategoryService {
 
 
     }
-
+    @Cacheable(value = "listCategoryForCustomer")
     @Override
     public List<CategoryVO> listCategoryForCustomer(){
         ArrayList<CategoryVO> categoryVOList = new ArrayList<>();

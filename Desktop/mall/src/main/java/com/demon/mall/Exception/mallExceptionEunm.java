@@ -19,6 +19,9 @@ public enum mallExceptionEunm {
     CATEGORY_ISNOTFOUND(10013,"需要的商品不存在"),
     DELETE_FAIL(10014,"删除失败"),
     ID_ISNULL(10015,"Category不存在"),
+    MKDIR_FAIL(10016,"创建文件夹失败"),
+    UPLOADFILE_FAIL(10017,"创建文件夹失败"),
+    BATCHUPDATE_FAIL(10018,"批量上下架失败"),
     INSERT_FAIL(10003, "插入用户失败，请重新再试");
     Integer code;
     String msg;

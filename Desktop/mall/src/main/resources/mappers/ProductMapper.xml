@@ -22,6 +22,26 @@
     from imooc_mall_product
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="SelectByname" parameterType="string" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from imooc_mall_product
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectlist"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from imooc_mall_product
+   order by create_time
+  </select>
+<update id="Batchupdatesellstatus">
+  update imooc_mall_product
+  set status = #{sellstatus}
+  where id in
+  <foreach collection="ids" close=")" item="id" open="(" separator=",">
+    #{id}
+  </foreach>
+</update>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from imooc_mall_product
     where id = #{id,jdbcType=INTEGER}

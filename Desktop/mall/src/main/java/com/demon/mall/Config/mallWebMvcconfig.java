@@ -1,6 +1,7 @@
 package com.demon.mall.Config;
 
 
+import com.demon.mall.Common.Encryption;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -13,6 +14,10 @@ public class mallWebMvcconfig implements WebMvcConfigurer {
                 "classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations(
                 "classpath:/META-INF/resources/webjars/");
+        //图片回传
+        registry.addResourceHandler("/images/**").
+                addResourceLocations("file:"+ Encryption.Uploadfile);
+
     }
 
 }
